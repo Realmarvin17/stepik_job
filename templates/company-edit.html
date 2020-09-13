@@ -1,0 +1,56 @@
+{% extends 'base_lk.html' %}
+{% block content %}
+
+<main class="container mt-3 pb-5">
+    <div class="row mt-5">
+        <div class="col-12 col-lg-4">
+            <aside class="pt-3 pb-4 px-4 mb-5 card">
+                <h1 class="h4 pt-2 pb-2">Моя компания</h1>
+                <div class="nav flex-column nav-pills">
+                    <a class="nav-link active" href="{% url 'mycompany'  %}">1. Информация о&nbsp;компании</a>
+                    <a class="nav-link" href="{% url 'mycompany_vacancies'  %}">2. Вакансии</a>
+                </div>
+            </aside>
+        </div>
+        <div class="col-12 col-lg-8">
+            <div class="card">
+                <div class="card-body px-4 pb-4">
+                    <!-- Tab -->
+                    <section class="tab-pane fade show active">
+                        <h2 class="h4 pt-2 pb-3">Информация о&nbsp;компании</h2>
+                        {% if messages %}
+                        {% for message in messages %}
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert" id="alert">
+                            {{ message }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        {% endfor %}
+                        {% endif %}
+
+                        <div class="row">
+                            <div class="col-12 col-md-12">
+                                <div class="form-group pb-2">
+                                    <a href="#"><img class="mx-auto d-block" src="{{ company.logo.url }}" width="150"
+                                                     height="80"
+                                                     alt=""></a>
+                                    <form method="post" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        {% include 'includes/forms.html' with form=form %}
+                                        <button type="submit" class="btn btn-primary">Сохранить</button>
+                                    </form>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <!-- END Tab -->
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+{% endblock %}

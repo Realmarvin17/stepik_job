@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<main class="container mt-3 pb-5">
+    <div class="row mt-5">
+        <div class="col-12 col-lg-2">
+            <div class="pl-3 mb-5">
+                <p><a href="{{ request.META.HTTP_REFERER }}">Назад</a></p>
+            </div>
+        </div>
+        <div class="col-12 col-lg-8">
+            <section class="pl-3">
+                <a href="#"><img src="{{ vacancy.company.logo }}" width="150" height="80" alt=""></a>
+                <div class="d-flex align-items-baseline align-content-baseline">
+                    <h1 class="h2 mt-4 font-weight-bold">{{ vacancy.title }}</h1>
+                    <p class="m-0 pl-3">От {{ vacancy.salary_min }} до {{ vacancy.salary_max }} руб.</p>
+                </div>
+                <p class="mt-2">{{ vacancy.skills }}</p>
+                <p class="text-muted mb-4">{{ vacancy.company.name }} ({{ vacancy.company.employee_count }} человек),
+                  {{ vacancy.company.location }} или удаленно</p>
+                <div style="line-height: 1.8;">
+                    <p>{{ vacancy.description }}</p>
+                </div>
+                <form method="post" class="card mt-4 mb-3">
+                    <div class="card-body mx-3">
+                        <p class="h5 mt-3 font-weight-normal">Отозваться на вакансию</p>
+                            {% csrf_token %}
+                            {% include 'includes/forms.html' with form=form %}
+                            <button type="submit" class="btn btn-primary">Отправить отклик</button>
+                    </div>
+                </form>
+
+            </section>
+        </div>
+    </div>
+</main>
+{% endblock %}
